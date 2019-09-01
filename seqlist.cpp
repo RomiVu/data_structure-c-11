@@ -4,8 +4,8 @@
 #include <ctime> // for std::time
 #include <cassert>
 #include <utility>// for std::swap  C++11
+#include "seqlist.h"
 
-using elemType = int;
 namespace MyRandom
 {
 	// Initialize our mersenne twister with a random seed based on the clock (once at system startup)
@@ -15,53 +15,6 @@ namespace MyRandom
 
 static const int MaxSize = 1000;
 
-struct SeqList
-{
-   int length {};
-   elemType *data;
-   int capacity {};
-};
-
-void InitList(SeqList &L);
-int Length(SeqList &L);
-int LocateElem(SeqList &L, elemType elem);
-elemType GetElem(SeqList &L, int index);
-bool ListInsert(SeqList &L, int index, elemType elem);
-bool ListDelete(SeqList &L, int index, elemType &elem);
-void PrintList(SeqList &L);
-bool isEmpty(SeqList &L);
-void DestoryList(SeqList &L);
-void ListDeleteMinElem(SeqList &L, elemType &a);
-void ListReversed(SeqList &L);
-void ListDeleteAllx(SeqList &L, elemType elem);
-void ListDeleteRangexy(SeqList &L, elemType x, elemType y);
-void ListDeleteDuplicate(SeqList &L);
-
-int getRandomNumber(int min, int max);
-
-
-
-int main()
-{
-    SeqList test;
-    InitList(test);
-    elemType a {1};
-    elemType b {1000};
-
-    for (int ii=0; ii< 15; ++ii)
-    {
-    ListInsert(test, 1, getRandomNumber(1, 10));
-    }
-
-    PrintList(test);
-    
-    ListDeleteDuplicate(test);
-    
-    PrintList(test);
-
-    DestoryList(test);
-    return 0;
-}
 
 void InitList(SeqList &L)
 {
@@ -206,20 +159,37 @@ void ListDeleteDuplicate(SeqList &L)
 {
    if(isEmpty(L))
        return;
-    elemType elem;
-    for(int ii=0; ii<L.length; ++ii)
-    {   
-        for (int jj=0; jj<L.length; ++jj)
-        {
-            if (L.data[ii] == L.data[jj])
-                std::cout << jj << " " << L.data[jj] << '\n';
-        }
-        std::cout << '\n';
-    }
+    // for(int ii=0; ii<L.length; ++ii)
+    // {   
+    //     int occur=0;
+    //     for(int jj=ii+1;jj<L.length;++jj)
+    //     {
+    //         if (L.data[jj] == L.data[ii])
+    //         {
+    //             ++occur;
+    //             while (L.data[jj+occur] == L.data[ii] && (jj+occur) <L.length)
+    //             {
+    //                 ++occur;
+    //             }
+    //             L.data[jj] = L.data[jj+occur];
+    //         }
+    //         if (occur != 0)
+    //             L.data[jj] = L.data[jj+occur];
+    //     }
+    // }
+    // todo:
 }
 
 int getRandomNumber(int min, int max)
 {
 	std::uniform_int_distribution<> die(min, max); // we can create a distribution in any function that needs it
 	return die(MyRandom::mersenne); // and then generate a random number from our global generator
+}
+
+void ListSortedMerge(SeqList &L1, SeqList &L2)
+{
+    // L1 and L2 is sorted.
+    SeqList mergedList;
+    InitList(mergedList);
+
 }
