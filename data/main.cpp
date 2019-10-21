@@ -3,6 +3,7 @@
 #include "solution.h"
 #include "matrix.h"
 #include "linklist.h"
+#include "tree.h"
 #include <stdio.h>
 #include <vector>
 #include <list>
@@ -34,6 +35,10 @@ string_code hashit (const std::string &inputString)
 
 int main()
 {
+    std::vector<int> num1 {1,3,5,7,9};
+    std::vector<int> num2 {2,4,6,8,10};
+    Solution s;
+    s.findMedianSortedArrays(num1, num2);
 	/*
 	sort algorithm
 	std::vector<int> v {53,17,78,9,45,65,87,32};
@@ -68,6 +73,9 @@ int main()
     printf("\ninsert build max heap sort used %0.5f seconds...\n",clock.interval());
     printVector(v3);
     */
+
+
+    /*
     Node head1;
     Node head2;
 
@@ -135,6 +143,7 @@ int main()
     		    std::cout << '\n';
     	}
     }
+    */
 
 	CloseWindow();
     return 0;

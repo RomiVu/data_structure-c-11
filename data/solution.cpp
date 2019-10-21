@@ -267,65 +267,11 @@ std::string Solution::longestPalindrome_dp(std::string s)
 
 double Solution::findMedianSortedArrays(std::vector<int>& nums1, std::vector<int>& nums2)
 {
-	int a=nums1.size() + nums2.size();
-	int i;
-	if (a % 2 == 0)
-	    i = a / 2 - 1;
-	else
-	    i = a / 2;
-
-	while (i > 0)
-	{
-		if(nums1.size()!=0 && nums2.size()!=0)
-		{
-			if (nums1.back() > nums2.back())
-				nums1.pop_back();
-			else
-				nums2.pop_back();
-		}
-	    else if (nums1.size()!=0)
-	    	nums1.pop_back();
-	    else
-	    	nums2.pop_back();
-		i--;
-	}
-
-	if (a % 2 == 0)
-	{
-		if(nums1.size()!=0 && nums2.size()!=0)
-		{
-			if (nums1.back() > nums2.back())
-				return nums1.back();
-			else
-				return nums2.back();
-		}
-	    else if (nums1.size()!=0)
-	    {	
-	    	int temp = nums1.back();
-	        nums1.pop_back();
-	        return (temp + nums1.back()) / 2.0;
-	    }
-	    else
-	    {
-	    	int temp = nums1.back();
-	        nums1.pop_back();
-	        return (temp + nums1.back()) / 2.0;
-	    }
-	}
-	else
-	{
-		if(nums1.size()!=0 && nums2.size()!=0)
-		{
-			if (nums1.back() > nums2.back())
-				return nums1.back();
-			else
-				return nums2.back();
-		}
-	    else if (nums1.size()!=0)
-	    	return nums1.back();
-	    else
-	    	return nums2.back();
-	}
+	int offset = (nums1.size() + nums2.size()) / 2 - 1;
+	int inti1 = nums1.size() / 2;
+	int inti2 = offset - inti1;
+	std::cout << "offset: init1 : inti2: " << offset << ' ' << inti1 << ' ' << inti2 << std::endl;
+	return 0;
 }
 
 std::vector<int> standUpCallM(int n, int m)
