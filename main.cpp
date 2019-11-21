@@ -1,23 +1,15 @@
-#include "seqlist.h"
+#include "tools.h"
+#include "chapter1.h"
+#include <cstdio>
+#include <vector>
 
-int main()
+int main(int argc, char const *argv[])
 {
-    SeqList test;
-    InitList(test);
-    elemType a {1};
-    elemType b {1000};
+	vector<int> v {1,2,3,4,5,61,71,81,91};
 
-    for (int ii=0; ii< 15; ++ii)
-    {
-    ListInsert(test, 1, getRandomNumber(1, 10));
-    }
+    printf("find index : %d\n", findAndInsert(v, 5));
 
-    PrintList(test);
-    
-    ListDeleteDuplicate(test);
-    
-    PrintList(test);
 
-    DestoryList(test);
-    return 0;
+	CloseWindow();
+	return 0;
 }
