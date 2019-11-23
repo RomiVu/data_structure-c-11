@@ -12,7 +12,7 @@ void deleteDuplicatesUnsorted(vector<int> &v);
 void deleteSpecific(vector<int> &v, int target);
 void deleteRangeFmTo(vector<int> &v, int low, int high);
 
-// merge mulit sorted vecotr into one vector
+// merge mulit sorted vector into one vector
 vector<int> mergeTwoSorted(vector<int> &v1, vector<int> &v2); 
 vector<int> mergeKSorted(vector<vector<int>> &v); 
 
@@ -24,7 +24,12 @@ void reverseTwoVector(vector<int> &v, int n, int m);
 int findAndInsert(vector<int> &v, int target); 
 
 // get median of sorted array
-double getMedianOfArray(vecotr<int> &v);
-double getMedianOfArrayUnsorted(vecotr<int> &v);
+double getMedianOfArray(vector<int> &v1, vector<int> &v2);
+double getMedianOfArrayUnsorted(vector<int> &v, int start, int end);
+int findKthLarge(vector<int> &v, int k, int start, int end);
+
+
+// different kinds of sorting 
+void quickSort(vector<int> &v, int start, int end); // O(nlog(n))
 
 #endif

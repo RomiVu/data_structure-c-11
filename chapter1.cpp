@@ -130,10 +130,102 @@ int findAndInsert(vector<int> &v, int target){
 	return -1;
 }
 
-double getMedianOfArray(vecotr<int> &v){
 
+int max(int a, int b){
+	return (a > b) ? a : b;
 }
 
-double getMedianOfArrayUnsorted(vecotr<int> &v){
+int min(int a, int b){
+	return (a < b) ? a : b;
+}
+
+
+double getMedianOfArray(vector<int> &v1, vector<int> &v2){
+	int n =v1.size();
+	int i = n / 2;
+	int j = n - i;
+
+	int lf = max(v1[i-1], v2[j-1]);
+	int rg = min(v1[i], v2[j]);
+
+	while(lf > rg){
+		if(v1[i-1] > v2[j-1]){
+            i--;
+		} else {
+		    i++;
+		}
+
+		j = n - i;
+
+		lf = max(v1[i-1], v2[j-1]);
+	    rg = min(v1[i], v2[j]);
+	}
+	return (lf + rg) / 2.0;
+}
+
+
+double getMedianOfArrayUnsorted(vector<int> &v, int start, int end){
+	if (end % 2 == 0){
+		return findKthLarge(v, end/2+1, start, end);
+	} else {
+		return findKthLarge(v, (end+1)/2 + 1, start, end);
+	}
+}
+
+
+int findKthLarge(vector<int> &v, int k, int start, int end){
+	int target = v[start];
+	int i=start, j=end+1;
 	
+	while(true) {
+		while(v[++i] < target){
+			if (i == end) break;
+		}
+
+	    while(v[--j] > target){
+			if (j == start) break;
+	    }
+
+		if (i >= j) break; 
+		swap(v[i], v[j]);
+	}
+
+	swap(v[start], v[j]);
+
+	// cout << "i: " << i << ", j: " << j  << " ;k: " << k << endl;
+	if (k == (j+1)) {
+		return v[j];
+	} else if (j == start) {
+		findKthLarge(v, k, start+1, end);
+	} else if (k < (j+1)) {
+		findKthLarge(v, k, start, j-1);
+	} else if (k > (j+1)) {
+		findKthLarge(v, k, j+1, end);
+	}
+}
+
+
+void quickSort(vector<int> &v, int start, int end){
+	if (start >= end) return;
+	int target = (v[start] + v[end]) / 2; 
+	int i = start - 1, j=end + 1;
+	
+	while(true){
+		while(v[++i] < target){
+			if (i == end)
+				break;
+		}
+
+	    while(v[--j] > target){
+			if (j == start)
+				break;
+	    }
+
+		if (i >= j) break; 
+		swap(v[i], v[j]);
+	}
+    
+    quickSort(v, start, j);
+    quickSort(v, j+1, end);
+
 }
