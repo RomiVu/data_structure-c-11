@@ -3,6 +3,15 @@
 #include "chapter2.h"
 #include <cstdio>
 #include <vector>
+#include <iostream>
+
+
+void printVector(vector<int> &v){
+    for (auto i : v){
+        std::cout << i << ' ';
+    }
+    std::cout << std::endl;
+}
 
 int main(int argc, char const *argv[])
 {
@@ -27,14 +36,34 @@ int main(int argc, char const *argv[])
  //    printf("\n++++++++++ \n");
 
 // chapter2
-    TreeNode* root = genANBTree();
-    vector<int> v;
+    // TreeNode* root = genANBTree();
 
-    v = inorderTraversal(root);
+    // vector<int> v1;
+    // v1 = preOrderTraversal(root);
 
-    for (auto i : v){
-    	printf("%d ", i);
+    // for (auto i : v1){
+    // 	printf("%d ", i);
+    // }
+
+    // printf("\n++++++++++ \n");
+
+
+// high level tree application 
+
+    vector<TreeNode*> v;
+    v = generateTrees(3);
+        vector<int> v1;
+            vector<int> v2;
+    for (auto node : v){
+
+        v1 = preOrderTraversal(node);
+        v2 = inOrderTraversal(node);
+
+        printVector(v1);
+        printVector(v2);
+        printf("\n++++++++++ \n");
     }
+
 
 	CloseWindow();
 	return 0;
