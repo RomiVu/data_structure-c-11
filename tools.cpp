@@ -153,3 +153,23 @@ vector<TreeNode*> generateTrees(int n){
 
     return rslt;
 }
+
+TreeNode* genBSTviaLevel(const std::vector<int>& v){
+	if (v.size() == 0) return nullptr;
+
+	vector<TreeNode*> temp;
+	for(int i=0; i<v.size(); i++){
+		// todo : -1 is marked as nullptr; how to replace it with some other sign
+		TreeNode* p = (v[i] == -1) ? nullptr : new TreeNode(v[i]);
+		temp.push_back(p);
+	}
+
+	for (int i=0; i< temp.size(); i++){
+		if (temp[i]) {
+			temp[i]->left = (2*i+1 < temp.size()) ? temp[2*i+1] : temp[i]->left;
+			temp[i]->right = (2*i+2 < temp.size()) ? temp[2*i+2] : temp[i]->right;
+		}
+	}
+
+	return temp[0];
+}

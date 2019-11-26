@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <vector>
 #include <iostream>
+#include <cmath>
 
 
 void printVector(vector<int> &v){
@@ -50,19 +51,30 @@ int main(int argc, char const *argv[])
 
 // high level tree application 
 
-    vector<TreeNode*> v;
-    v = generateTrees(3);
-        vector<int> v1;
-            vector<int> v2;
-    for (auto node : v){
+    TreeNode* root;
+    std::vector<int> v {5,2,7,1,3,6,8,-1,-1,-1,4};
+    // std::vector<int> v {1, -1, 2, -1, -1, 3};
 
-        v1 = preOrderTraversal(node);
-        v2 = inOrderTraversal(node);
+    root = genBSTviaLevel(v);
 
-        printVector(v1);
-        printVector(v2);
-        printf("\n++++++++++ \n");
+    std::vector<int> v1;
+    std::vector<int> v2;
+
+    // v1 = preOrderTraversal(root);
+// 
+    v2 = inOrderTraversal(root);
+
+    // printVector(v1);
+    printVector(v2);
+    // printf("\n++++++++++ \n");
+
+    if (isValidBST1(root)){
+        printf("this is a vaild binary search tree.\n");
+    } else {
+        printf("this is NOT a vaild binary search tree.\n");
     }
+
+    printf("this largest number %d; smallest number is %d\n", findLargestBT(root, root->val), findSmallestBT(root, root->val));
 
 
 	CloseWindow();

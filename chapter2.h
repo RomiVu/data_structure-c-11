@@ -18,5 +18,11 @@ vector<int> levelOrderTraversal(TreeNode* root);
 
 // binary search tree
 bool isValidBST(TreeNode* root);
+bool isValidBST1(TreeNode* root);
+
+
+// find largest element in a binary tree
+int findLargestBT(TreeNode* root, int current);
+int findSmallestBT(TreeNode* root, int current);
 
 #endif

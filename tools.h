@@ -23,4 +23,7 @@ TreeNode* genANBTree();
 // given a interger, return all binary search trees consisting of [1,2, ... , n]
 std::vector<TreeNode*> generateTrees(int n);
 
+// generate a tree for test
+TreeNode* genBSTviaLevel(const std::vector<int>& v);
+
 #endif

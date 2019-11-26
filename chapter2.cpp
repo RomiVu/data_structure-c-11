@@ -2,6 +2,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <set>
 
 using namespace std;
 
@@ -46,19 +47,22 @@ vector<int> postOrderTraversal(TreeNode* root){
 vector<int> inOrderTraversal(TreeNode* root){
 	vector<int> rslt;
 	stack<TreeNode*> p;
+	set<TreeNode*> seen;
 	TreeNode* temp;
 
 	p.push(root);
     while(!p.empty()){
     	temp = p.top();
+
     	p.pop();
     	if (temp->right==nullptr && temp->left==nullptr){
     		rslt.push_back(temp->val);
-    	} else if (!p.empty() && temp->right == p.top()){
+    	} else if (seen.find(temp) != seen.end()) {
     		rslt.push_back(temp->val);
     	} else { 
 			if (temp->right) p.push(temp->right);
 			p.push(temp);
+			seen.insert(temp);
 			if (temp->left) p.push(temp->left);
 		}
     }
@@ -132,12 +136,89 @@ vector<int> postOrderTraversalR(TreeNode* root){
 	return rslt;
 }
 
+// int max(TreeNode* a, TreeNode* b, int origin){
+// 	if (a == nullptr && b == nullptr) return origin;
+// 	if (a == nullptr) return (b->val > origin) ? b->val : origin;
+// 	if (b == nullptr) return (a->val > origin) ? a->val : origin;
+// 	int temp;
+// 	temp = (a->val > b->val) ? a->val : b->val;
+// 	return (temp > origin) ? temp : origin;
+// }
+
+// int min(TreeNode* a, TreeNode* b, int origin){
+// 	if (a == nullptr && b == nullptr) return origin;
+// 	if (a == nullptr) return (b->val < origin) ? b->val : origin;
+// 	if (b == nullptr) return (a->val < origin) ? a->val : origin;
+// 	int temp;
+// 	temp = (a->val < b->val) ? a->val : b->val;
+// 	return (temp < origin) ? temp : origin;
+// }
+
+
+
+// int findMaxOfBinTree(TreeNode* root, int current){
+// 	if (!root) return current;
+// 	int temp = max(root->left, root->right, root->val);
+	
+// 	int a = findMaxOfBinTree(root->left, temp);
+// 	int b = findMaxOfBinTree(root->right, temp);
+
+// 	return (a > b) ? a : b;
+// }
+
+// int findMinOfBinTree(TreeNode* root, int current){
+// 	if (!root) return current;
+// 	int temp = min(root->left, root->right, root->val);
+	
+// 	int a = findMinOfBinTree(root->left, temp);
+// 	int b = findMinOfBinTree(root->right, temp);
+
+// 	return (a < b) ? a : b;
+// }
 
 bool isValidBST(TreeNode* root) {
 	if (!root) return true;
 
-	if(root->left && (root->left->val > root->val)) return false;
-	if (root->right && (root->right->val < root->val)) return false;
+	if(root->left){
+		if (root->left->val >= root->val) return false;
+	    if (findLargestBT(root->left, root->left->val) >= root->val) return false;
+	}
+
+	if(root->right){
+		if (root->right->val <= root->val) return false;
+	    if (findSmallestBT(root->right, root->right->val) <= root->val) return false;
+	}
 
     return (isValidBST(root->left) && isValidBST(root->right));
+}
+
+bool isValidBST1Helper(TreeNode* node, int* lower, int* upper){
+    if (!node) return true;
+
+    int val = node->val;
+    if (upper != nullptr && val >= *upper) return false;
+    if (lower != nullptr && val <= *lower) return false;
+
+    return isValidBST1Helper(node->left, lower, &val) &&  isValidBST1Helper(node->right, &val, upper);
+}
+
+bool isValidBST1(TreeNode* root){
+   return isValidBST1Helper(root, nullptr, nullptr);
+}
+
+
+int findLargestBT(TreeNode* root, int current){
+    if (!root) return current;
+    int max = (root->val > current) ? root->val : current;
+    int a = findLargestBT(root->right, max);
+    int b = findLargestBT(root->left, max);
+    return (a > b) ? a : b;
+}
+
+int findSmallestBT(TreeNode* root, int current){
+    if (!root) return current;
+    int max = (root->val < current) ? root->val : current;
+    int a = findSmallestBT(root->right, max);
+    int b = findSmallestBT(root->left, max);
+    return (a < b) ? a : b;
 }
