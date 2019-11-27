@@ -3,6 +3,7 @@
 #include <queue>
 #include <stack>
 #include <set>
+#include <unordered_map>
 
 using namespace std;
 
@@ -192,6 +193,7 @@ bool isValidBST(TreeNode* root) {
     return (isValidBST(root->left) && isValidBST(root->right));
 }
 
+
 bool isValidBST1Helper(TreeNode* node, int* lower, int* upper){
     if (!node) return true;
 
@@ -201,6 +203,7 @@ bool isValidBST1Helper(TreeNode* node, int* lower, int* upper){
 
     return isValidBST1Helper(node->left, lower, &val) &&  isValidBST1Helper(node->right, &val, upper);
 }
+
 
 bool isValidBST1(TreeNode* root){
    return isValidBST1Helper(root, nullptr, nullptr);
@@ -215,6 +218,7 @@ int findLargestBT(TreeNode* root, int current){
     return (a > b) ? a : b;
 }
 
+
 int findSmallestBT(TreeNode* root, int current){
     if (!root) return current;
     int max = (root->val < current) ? root->val : current;
@@ -222,3 +226,66 @@ int findSmallestBT(TreeNode* root, int current){
     int b = findSmallestBT(root->left, max);
     return (a < b) ? a : b;
 }
+
+
+bool canMeasureWater(int x, int y, int z) {
+	if (z < 0) return false;
+	if (z == 0) return true;
+    if ((x+y) < z) return false;
+    if ((x+y) == z) return true;
+    if (x == y){
+    	if (x == z) return true;
+    	return false;	
+    } else {
+    	if (z == x || z == y) return true;
+    	if (x > y){
+    		int temp = y;
+    		y = x;
+    		x = temp;
+    	}
+
+    	int capacity = y;
+    	while( capacity > 0 && capacity < (x+y)) {
+    		if (capacity > y) {
+    			capacity
+    		}
+    	}
+    }
+}
+
+
+
+int largestComponentSize(vector<int>& A) {
+	unordered_map<int, set<int>> graph;
+
+    for(int i=0; i<A.size(); ++i){
+    	for (int j=i+1; j<A.size(); ++j){
+    		if (getPrimeNum(A[i], A[j]) > 1){
+    			if (graph.find(i) == graph.end()){
+    				set<int> temp (j);
+    				graph[i] = temp;
+    			}else{
+    				graph[i].insert(j);
+    			}
+    		}
+    	}
+    }
+
+
+    int max = 0;
+    vector<set<int>> v;
+
+	 for ( auto it=graph.begin(); it!=graph.end(); ++it) {
+	 	for (auto s : v){
+	 		if (s.find(it->first)) s
+	 	}
+
+	 }
+	    it->first
+	    it->second
+}
+
+int getPrimeNum(int a, int b){
+	return (a > b) ? ((a % b == 0) ? b : getPrimeNum(b, a % b)) : getPrimeNum(b , a); 
+}
+// to do water fill up and graph
