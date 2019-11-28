@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include "tools.h"
 #include "chapter1.h"
 
 using namespace std;
@@ -128,15 +129,6 @@ int findAndInsert(vector<int> &v, int target){
 	}
 
 	return -1;
-}
-
-
-int max(int a, int b){
-	return (a > b) ? a : b;
-}
-
-int min(int a, int b){
-	return (a < b) ? a : b;
 }
 
 

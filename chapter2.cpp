@@ -228,63 +228,6 @@ int findSmallestBT(TreeNode* root, int current){
 }
 
 
-bool canMeasureWater(int x, int y, int z) {
-	if (z < 0) return false;
-	if (z == 0) return true;
-    if ((x+y) < z) return false;
-    if ((x+y) == z) return true;
-    if (x == y){
-    	if (x == z) return true;
-    	return false;	
-    } else {
-    	if (z == x || z == y) return true;
-    	if (x > y){
-    		int temp = y;
-    		y = x;
-    		x = temp;
-    	}
-
-    	int capacity = y;
-    	while( capacity > 0 && capacity < (x+y)) {
-    		if (capacity > y) {
-    			capacity
-    		}
-    	}
-    }
-}
-
-
-
-int largestComponentSize(vector<int>& A) {
-	unordered_map<int, set<int>> graph;
-
-    for(int i=0; i<A.size(); ++i){
-    	for (int j=i+1; j<A.size(); ++j){
-    		if (getPrimeNum(A[i], A[j]) > 1){
-    			if (graph.find(i) == graph.end()){
-    				set<int> temp (j);
-    				graph[i] = temp;
-    			}else{
-    				graph[i].insert(j);
-    			}
-    		}
-    	}
-    }
-
-
-    int max = 0;
-    vector<set<int>> v;
-
-	 for ( auto it=graph.begin(); it!=graph.end(); ++it) {
-	 	for (auto s : v){
-	 		if (s.find(it->first)) s
-	 	}
-
-	 }
-	    it->first
-	    it->second
-}
-
 int getPrimeNum(int a, int b){
 	return (a > b) ? ((a % b == 0) ? b : getPrimeNum(b, a % b)) : getPrimeNum(b , a); 
 }

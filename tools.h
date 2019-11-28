@@ -26,4 +26,9 @@ std::vector<TreeNode*> generateTrees(int n);
 // generate a tree for test
 TreeNode* genBSTviaLevel(const std::vector<int>& v);
 
+
+int min(int a, int b);
+int max(int a, int b);
+// int abs(int a);
+
 #endif
