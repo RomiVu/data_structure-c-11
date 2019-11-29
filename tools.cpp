@@ -3,6 +3,7 @@
 #include <ctime> // for time ()
 #include <random> // for mersenne twister
 #include <vector>
+#include <set>
 
 using namespace std;
 
@@ -20,10 +21,14 @@ namespace MyRandom
 	mt19937 mersenne{ static_cast<mt19937::result_type>(time(nullptr)) };
 }
  
-int getRandomNumber(int min, int max)
-{
+int getRandomNumber(int min, int max){
 	uniform_int_distribution die { min, max }; // we can create a distribution in any function that needs it
 	return die(MyRandom::mersenne); // and then generate a random number from our global generator
+}
+
+double getRandomNumber(double min, double max){
+	uniform_real_distribution die {min, max};
+	return die(MyRandom::mersenne);
 }
 
 void insertLeft(TreeNode* root, int left){
@@ -184,6 +189,22 @@ int max(int a, int b){
     return (a > b) ? a : b;
 }
 
-// int abs(int a){
-//     return (a > 0) ? a : -a;
-// }
+vector<int> randomSample(int start, int end, int k){
+	if (end < start) throw 0;
+
+	int n = end - start + 1;
+	if (k < 0 || k >n) throw 0;
+	vector<int> rslt;
+	set<int> choosen;
+
+	int index = getRandomNumber(0.0, 1.0) * n + start;
+	while(rslt.size() < k){
+		while (choosen.find(index) != choosen.end()) {
+			index = getRandomNumber(0.0, 1.0) * n + start;
+		}
+		rslt.push_back(index);
+		choosen.insert(index);
+	}
+
+	return rslt;
+}

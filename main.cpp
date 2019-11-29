@@ -32,29 +32,36 @@ void inOrderPrint(TreeNode* root){
 
 
 int calculateSum1(std::vector<int>& nums, std::vector<int>& seq){
+    // vector<int> v;
     int rslt = 0;
-    int lower, low, upper, high;
-    for (int i=0; i < seq.size(); ++i){
-        low = seq[i]-1;
-        high = seq[i]+1;
+    // nums.insert(nums.begin(), 1);
+    // nums.push_back(1);
 
-        if (i > 1) std::sort(seq.begin(), seq.begin()+i);
-
-        for (int j=i-1; j >=0; j--){
-            if (low == seq[j]) low--;
-        }
-
-        for (int j=0; j <= i-1; j++){
-            if (high == seq[j]) high++;
-        }
-
-        lower = (low >= 0) ? nums[low] : 1;
-        upper = (high < nums.size()) ? nums[high] : 1;
-
-        rslt += nums[seq[i]] * lower * upper; 
-    }
+    // for (auto i : seq){
+    //     rslt += nums[i] * nums[i+1] * nums[i+2];
+    //     nums.erase(nums.begin()+i+1);
+    // }
 
     return rslt;
+}
+
+
+int maxCoins(vector<int>& nums) {
+    int N = nums.size();
+    nums.insert(nums.begin(),1);
+    nums.push_back(1);
+    const int len = nums.size();
+    std::vector<std::vector<int>> d(len,std::vector<int>(len,0));
+    for(int c = 1;c <= N;++c){
+        for(int i = 1;i+c-1 <= N;++i){
+            const int j = i+c-1;
+            int& ans=d[i][j];
+            for(int k=i;k<=j;++k){
+                ans=max(ans, nums[i-1]*nums[k]*nums[j+1] + d[i][k-1] + d[k+1][j]);
+            }
+        }
+    }
+    return d[1][N];
 }
 
 
@@ -121,18 +128,12 @@ int main(int argc, char const *argv[])
     // printf("this largest number %d; smallest number is %d\n", findLargestBT(root, root->val), findSmallestBT(root, root->val));
     Solution solu;
 
-    std::vector<int> nums {9,76,64,21,97,60};
-
-    printf("%d\n",  solu.maxCoins(nums));
+    std::vector<int> v {3,1,4,2};
 
 
-    std::vector<int> seq2 {3, 2, 1, 4, 0, 5};
-    printf("%d\n",  calculateSum1(nums, seq2));
-
-    // std::vector<int> seq1 {3, 1, 2, 4, 0};
-    // printf("%d\n",  calculateSum1(nums, seq1));
-
+    printf("all nodes number is %d\n", solu.find132pattern(v));
 
 	CloseWindow();
 	return 0;
 }
+

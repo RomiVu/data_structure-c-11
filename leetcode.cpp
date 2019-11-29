@@ -6,6 +6,7 @@
 #include <vector>
 #include <climits>
 #include <algorithm>
+#include <tuple>
 
 
 using namespace std;
@@ -15,7 +16,6 @@ void inOrder(TreeNode* root, int &rslt, int &last){
     rslt = (abs(last - root->val) < rslt) ? abs(last - root->val) : rslt;
     last = root->val;
     if (root->right) inOrder(root->right, rslt,  last);
-
 }
 
 
@@ -136,10 +136,12 @@ int calculateSum(vector<int>& nums, vector<int>& seq){
 }
 
 int Solution::maxCoins(vector<int>& nums) {
+	//  feel sad about me...s
 	int size = nums.size();
 	if (size == 0) return 0;
 	if (size == 1) return nums[0];
 	vector<int> seq;
+	vector<int> temp;
 	int seq_size=size-2;
 
 	for (int i=0; i<size; ++i){
@@ -155,25 +157,8 @@ int Solution::maxCoins(vector<int>& nums) {
 
 	cout << "seq.size is " << seq.size() << " seq_size is " << seq_size << '\n'; 
 	
-
-	set<int> seen;
-	while(seq.size() < seq_size){
-		int index=-1;
-		for (int i=1; i<size-1; ++i){
-			if (nums[i] <= 1) continue;
-			if (index == -1) {
-				index = i;
-			} else {
-				if (seen.find(i) != seen.end()) {
-					index = -1;
-				} else {
-				 	if (nums[i] < nums[index]) index = i;
-				}
-			}
-		}
-		seq.push_back(index);
-		seen.insert(index);
-	}
+	if (size > 2) temp = getIndexSorted(nums, 1, size-2);
+	seq.insert(seq.end(), temp.begin(), temp.end());
 
 	if (seq_size < size){
 		if (nums[size-1] <= 1){
@@ -195,20 +180,56 @@ int Solution::maxCoins(vector<int>& nums) {
     return calculateSum(nums, seq);
 }
 
+
 vector<int> getIndexSorted(vector<int>& v, int s, int e){
-	// [5, 4, 6, 7, 8, 2]
-	//     s     e
+	// return unsorted v[s, e] ==> [s+1, e, e-1, ..., s+2]  
 	vector<int> rslt;
-	int min=s;
 
-	while(rslt.size() != (e-s+1)) {
-		for (int i=s; i<=e; ++i){
-			if (v[i] < v[min]) min = i;
-		}
+	vector<tuple<int, int>> temp;
+	tuple<int, int> tp;
 
-		rslt.push_back(min);
-		min = rslt.back();
+	for (int i=s; i<=e; ++i){
+		// if (v[i] <= 1) continue; // special 
+		tp = make_tuple(v[i], i);
+		temp.push_back(tp);
+	}
+
+	sort(temp.begin(), temp.end());
+
+	for (int i=0;i<temp.size();i++){
+		rslt.push_back(get<1>(temp[i]));
 	}
 
 	return rslt;
+}
+
+
+
+int Solution::countNodes(TreeNode* root) {
+	if(!root) return 0;
+	if (!root->left) return 1;
+	return  1 + countNodes(root->left) + countNodes(root->right);
+}
+
+
+bool Solution::find132pattern(vector<int>& nums){
+    int n = nums.size();
+    if (n < 3) return false;
+
+	vector<tuple<int, int>> temp;
+	tuple<int, int> tp;
+
+	for (int i=0; i<n; ++i){
+		tp = make_tuple(nums[i], i);
+		temp.push_back(tp);
+	}
+
+	sort(temp.begin(), temp.end());
+
+	for (int i=2; i<n; ++i){
+		if (get<0>(temp[i-1]) == get<0>(temp[i-2]) || get<0>(temp[i-1]) == get<0>(temp[i])) continue;
+		if (get<1>(temp[i]) < get<1>(temp[i-1]) && get<1>(temp[i]) > get<1>(temp[i-2])) return true; // problem {3,1,4,2};
+	}
+
+    return false;
 }

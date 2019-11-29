@@ -20,7 +20,15 @@ class Solution {
 	    int findPairs(vector<int>& nums, int k);
 
 		int maxCoins(vector<int>& nums);
-    
+
+		// All nodes of complete binary tree 
+		int countNodes(TreeNode* root);
+
+		bool find132pattern(vector<int>& nums);
 };
+
+
+
+vector<int> getIndexSorted(vector<int>& v, int s, int e);
 
 #endif
