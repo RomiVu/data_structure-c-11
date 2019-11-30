@@ -233,3 +233,42 @@ bool Solution::find132pattern(vector<int>& nums){
 
     return false;
 }
+
+
+int get_length(int x){
+    return (x/10 != 0) ? 1+get_length(x/10) : 1;
+}
+
+
+// vector<int> Solution::addToArrayForm(vector<int>& A, int K) {
+//     int extra =0;
+//     int n = A.size();
+//     int mul = 1;
+//     int temp=0;
+
+//     vector<int> rslt (max(get_length(K), n), 0);
+
+//     while (10 * mul < K) {
+//     	temp = K % (10 * mul) + A[n-2+i] + extra;
+//     	A[n-2+i] = temp / 10;
+//     	extra = temp % 10;
+//     }
+// }
+
+
+// int Solution::eraseOverlapIntervals(vector<vector<int>>& intervals){
+// 	int end;
+// 	for (auto ele : intervals){
+
+// 	}
+// }
+
+// Input: A = [2,1,5], K = 806
+// Output: [1,0,2,1]
+// Explanation: 215 + 806 = 1021
+
+// 1 <= A.length <= 10000
+// 0 <= A[i] <= 9
+// 0 <= K <= 10000
+// If A.length > 1, then A[0] != 0
+// [[1,2],[1,2],[1,2]]

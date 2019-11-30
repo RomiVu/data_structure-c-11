@@ -126,12 +126,9 @@ int main(int argc, char const *argv[])
     // }
 
     // printf("this largest number %d; smallest number is %d\n", findLargestBT(root, root->val), findSmallestBT(root, root->val));
-    Solution solu;
+    // Solution solu;
 
-    std::vector<int> v {3,1,4,2};
-
-
-    printf("all nodes number is %d\n", solu.find132pattern(v));
+    // std::vector<int> v {3,1,4,2};
 
 	CloseWindow();
 	return 0;

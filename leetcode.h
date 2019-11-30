@@ -19,12 +19,19 @@ class Solution {
 
 	    int findPairs(vector<int>& nums, int k);
 
+	    // to understand
 		int maxCoins(vector<int>& nums);
 
 		// All nodes of complete binary tree 
 		int countNodes(TreeNode* root);
 
+		// todo
 		bool find132pattern(vector<int>& nums);
+
+		//
+		vector<int> addToArrayForm(vector<int>& A, int K);
+
+		int eraseOverlapIntervals(vector<vector<int>>& intervals);
 };
 
 
