@@ -2,6 +2,8 @@
 #include "chapter1.h"
 #include "chapter2.h"
 #include "leetcode.h"
+#include "tree.h"
+#include "graph.h"
 #include <cstdio>
 #include <vector>
 #include <iostream>

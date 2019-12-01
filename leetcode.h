@@ -1,7 +1,10 @@
 #ifndef LEETCODE_H
 #define LEETCODE_H
-#include "tools.h"
 #include <vector>
+
+#include "tools.h"
+#include "tree.h"
+
 
 using namespace std;
 
@@ -32,6 +35,8 @@ class Solution {
 		vector<int> addToArrayForm(vector<int>& A, int K);
 
 		int eraseOverlapIntervals(vector<vector<int>>& intervals);
+
+		int maximalSquare(vector<vector<char>>& matrix);
 };
 
 

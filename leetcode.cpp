@@ -1,5 +1,6 @@
 #include "leetcode.h"
 #include "tools.h"
+#include "tree.h"
 #include <iostream>
 #include <stack>
 #include <set>
@@ -239,6 +240,16 @@ int get_length(int x){
     return (x/10 != 0) ? 1+get_length(x/10) : 1;
 }
 
+
+int Solution::maximalSquare(vector<vector<char>>& matrix){
+	int N=matrix.size();
+	for(int i=0; i<N; ++i){
+		for (int j=0; j<N; ++j){
+			if (matrix[i][j] == '1') continue;
+		}
+	}
+
+}
 
 // vector<int> Solution::addToArrayForm(vector<int>& A, int K) {
 //     int extra =0;

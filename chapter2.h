@@ -1,7 +1,10 @@
 #ifndef CHAPTER2_H
 #define CHAPTER2_H
-#include <vector>
 #include "tools.h"
+#include "tree.h"
+
+#include <vector>
+
 
 using namespace std;
 
