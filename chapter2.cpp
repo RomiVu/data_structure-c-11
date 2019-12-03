@@ -1,5 +1,6 @@
 #include "chapter2.h"
 #include "tree.h"
+#include "tools.h"
 #include <vector>
 #include <queue>
 #include <stack>
@@ -132,9 +133,8 @@ void postHelper(TreeNode* node, vector<int> &rslt){
 
 vector<int> postOrderTraversalR(TreeNode* root){
 	vector<int> rslt;
-
+	
 	postHelper(root, rslt);
-
 	return rslt;
 }
 
@@ -232,4 +232,26 @@ int findSmallestBT(TreeNode* root, int current){
 int getPrimeNum(int a, int b){
 	return (a > b) ? ((a % b == 0) ? b : getPrimeNum(b, a % b)) : getPrimeNum(b , a); 
 }
-// to do water fill up and graph
+
+
+int maxDepth(TreeNode* root) {
+	if (!root) return 0;
+    if (!root->left && !root->right) return 1;
+    if (!root->left) return 1+maxDepth(root->right);
+    if (!root->right) return 1+maxDepth(root->left);
+    return max(1+maxDepth(root->left), 1 + maxDepth(root->right));
+}
+
+
+bool isBalanced(TreeNode* root) {
+	 if (!root) return true;
+	 if (abs(maxDepth(root->left) - maxDepth(root->right)) > 1) return false;
+	 return isBalanced(root->left) && isBalanced(root->right);
+    
+}
+
+
+bool isBalancedBST(TreeNode* root){
+   // to be continued...
+   return false;
+}

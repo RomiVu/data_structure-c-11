@@ -39,6 +39,10 @@ int max(int a, int b){
     return (a > b) ? a : b;
 }
 
+int _abs(int a){
+	return (a > 0) ? a : -a;
+}
+
 vector<int> randomSample(int start, int end, int k){
 	if (end < start) throw 0;
 

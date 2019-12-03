@@ -1,4 +1,5 @@
 #include "tree.h"
+#include "tools.h"
 #include <vector>
 
 
@@ -137,3 +138,67 @@ TreeNode* genBSTviaLevel(const std::vector<int>& v){
 	return temp[0];
 }
 
+
+
+// generate a balanced BST from random vector
+TreeNode* generateBST(const vector<int>& v){
+    if (v.size() == 0) return nullptr;
+
+    TreeNode* root = new TreeNode(v[0]);
+
+    for (int i=1; i<v.size(); i++){
+        insertBST(root, v[i]);
+    }
+    return root;
+}
+
+
+// insert into a balanced BST to keep it sorted and balanced
+void insertBST(TreeNode* root, int element){
+    if (!root) return;
+
+    TreeNode* ptr = root;
+    while(true) {
+        if (element < ptr->val){
+            // ptr->ld++;
+            if (ptr->left){
+                ptr = ptr->left;
+            }else {
+                ptr->left = new TreeNode(element);
+                return;
+            }
+        } else if (element > ptr->val){
+            // ptr->rd++;
+            if (ptr->right){
+                ptr = ptr->right;
+            }else {
+                ptr->right = new TreeNode(element);
+                return;
+            }
+        }else {
+            throw 0; // can't be equal
+            return;
+        }
+    }
+}
+
+
+void transformBSTtoBalanced(TreeNode* root){
+    if (!root) return;
+    if (root->left) transformBSTtoBalanced(root->left);
+    if (root->right) transformBSTtoBalanced(root->right);
+    root->ld = (root->left) ? max(root->left->ld, root->left->rd) + 1 : 0;
+    root->rd = (root->right) ? max(root->right->ld, root->right->rd) + 1 : 0;
+}
+
+
+TreeNode* rotateLeft(TreeNode *root){
+    if (!root) return nullptr;
+    if (root->left) rotateLeft(root->left);\
+    if (_abs(root->ld - root->rd) > 1) return root;
+    if (root->right) rotateLeft(root->right);
+}
+
+// TreeNode* rotateRight(TreeNode *root){
+
+// }

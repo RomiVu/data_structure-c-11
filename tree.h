@@ -4,10 +4,10 @@
 
 //Definition for a binary tree node.
 struct TreeNode {
-	 int val;
+	 int val, ld, rd;
 	 TreeNode *left;
 	 TreeNode *right;
-	 TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+	 TreeNode(int x) : val(x), left(nullptr), right(nullptr), ld(0), rd(0) {}
 };
 
 // generate a tree for test
@@ -20,5 +20,15 @@ std::vector<TreeNode*> generateTrees(int n);
 TreeNode* genBSTviaLevel(const std::vector<int>& v);
 
 
+// generate a balanced BST from random vector
+TreeNode* generateBST(const std::vector<int>& v);
+
+// insert into a balanced BST to keep it sorted and balanced
+void insertBST(TreeNode* root, int element);
+
+void transformBSTtoBalanced(TreeNode* root);
+
+TreeNode* rotateLeft(TreeNode *root);
+TreeNode* rotateRight(TreeNode *root);
 
 #endif

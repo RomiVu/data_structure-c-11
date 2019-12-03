@@ -13,6 +13,7 @@ std::vector<int> randomSample(int start, int end, int k);
 
 int min(int a, int b);
 int max(int a, int b);
+int _abs(int a);
 
 
 #endif

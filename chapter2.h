@@ -28,4 +28,8 @@ bool isValidBST1(TreeNode* root);
 int findLargestBT(TreeNode* root, int current);
 int findSmallestBT(TreeNode* root, int current);
 
+// balanced tree
+int maxDepth(TreeNode* root);
+bool isBalanced(TreeNode* root);
+
 #endif
