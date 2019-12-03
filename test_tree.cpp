@@ -9,8 +9,6 @@
 
 using namespace std;
 
-
-
 void printVector(vector<int> &v){
     for (auto i : v){
         cout << i << ' ';
@@ -32,7 +30,7 @@ void preOrderPrint(TreeNode* root){
 
 
 int main(int argc, char const *argv[])
-{   
+{
     // vector<int> v { 16, 10, 20,-1,-1,-1,22,-1,-1,-1,-1,-1,-1,-1,25};
     // vector<int> v { 16, 10, 20,-1, -1,18,22,-1,-1,-1,-1,-1,-1,21,25};
     vector<int> v { 16, 10, 20, 7, -1,-1,-1,5, -1,-1,-1,-1,-1,-1,-1, 3};
@@ -78,7 +76,7 @@ int main(int argc, char const *argv[])
     // }
 
 
-   cout << "Is A balanced tree: " << isBalanced(root) << endl;
+    cout << "Is A balanced tree: " << isBalanced(root) << endl;
 
     cout << "Is A Binary Search Tree: " << isValidBST1(root) << endl;
 
