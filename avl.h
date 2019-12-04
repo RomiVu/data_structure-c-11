@@ -37,7 +37,7 @@ private:
     TreeNode<T>* maximum(TreeNode<T> *tree);
 
     TreeNode<T>* insert(TreeNode<T>* &tree, T data);
-    // TreeNode<T>* remove(TreeNode<T>* &tree, TreeNode<T> *deleted);
+    TreeNode<T>* remove(TreeNode<T>* &tree, TreeNode<T> *rm);
 
     void destroy(TreeNode<T>* &tree);
 
@@ -260,16 +260,54 @@ template <class T>
 void AVLTree<T>::insert(T data){ insert(root, data); }
 
 
-// template<class T>
-// TreeNode<T>* AVLTree<T>::remove(TreeNode<T>* &tree, TreeNode<T> *deleted){
-// }
+template<class T>
+TreeNode<T>* AVLTree<T>::remove(TreeNode<T>* &tree, TreeNode<T> *rm){
+    if (tree == nullptr) return nullptr;
+    if (tree->val == rm->val) 
+    {
+        if (rm->left == nullptr && rm->right == nullptr)
+        {
+            tree = nullptr;
+        }
+        else if (rm->left == nullptr)
+        {
+            tree = rm->right;
+        }
+        else  if(rm->right == nullptr)
+        {
+            tree = rm->left;
+        }
+        else
+        {
+           TreeNode<T> *temp = minimum(rm->right);
+           temp->left = rm->left;
+           temp->right = rm->right;
+           tree = temp;
+           delete temp;
+        }
+        delete rm;
+    }
+    else if (tree->val < rm->val)
+    {
+        tree = remove(tree->right, rm);
+    }
+    else
+    {
+        tree = remove(tree->left, rm);
+    }
+    
+    return tree;
 
-// template<class T>
-// void AVLTree<T>::remove(T data){
-//     TreeNode<T>* romoved = search(root, data);
-//     if (romoved && romoved->val == data){ 
-//         remove(root, romoved);
-// }
+}
+
+template<class T>
+void AVLTree<T>::remove(T data){
+    TreeNode<T>* rm = search(root, data);
+    if (rm != nullptr && rm->val == data){ 
+        cout << "has found the node want to be deleted.\n";
+        remove(root, rm);
+    }
+}
 
 template<class T>
 void AVLTree<T>::destroy(TreeNode<T>* &tree){
