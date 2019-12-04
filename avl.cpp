@@ -219,11 +219,6 @@ bool AVLTree<T>::destroy(){
 
 
 template<class T>
-bool AVLTree<T>::empty(){
-
-}
-
-template<class T>
 TreeNode<T>* AVLTree<T>::leftLeftRotation(TreeNode<T> *ro){
     TreeNode<T>* temp;
 
