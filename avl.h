@@ -1,33 +1,25 @@
 #ifndef AVL_H
 #define AVL_H
+#include "binarytree.h"
+#include "tools.h"
 #include <iostream>
 #include <queue>
-#include "tools.h"
+
 
 using namespace std;
 
-template<class T>
-struct TreeNode {
-    T val;
-    int depth;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(T value) :
-        val(value) ,left(nullptr), right(nullptr) {}
-    TreeNode(T value, TreeNode *l, TreeNode *r) :
-        val(value), left(l), right(r) {}
-};
 
 template<class T>
-class AVLTree {
+class AVLTree : public BTree<T>
+{
 private:
     TreeNode<T>* root;
     int depth(TreeNode<T> *tree);
 
-    void preOrderPrint(TreeNode<T> *tree) const;
-    void inOrderPrint(TreeNode<T> *tree) const;
-    void postOrderPrint(TreeNode<T> *tree) const;
-    void levelOrderPrint(TreeNode<T> *tree) const;
+    // void preOrderPrint(TreeNode<T> *tree) const;
+    // void inOrderPrint(TreeNode<T> *tree) const;
+    // void postOrderPrint(TreeNode<T> *tree) const;
+    // void levelOrderPrint(TreeNode<T> *tree) const;
 
 
     TreeNode<T>* search(TreeNode<T> *x, T target) const;
@@ -39,7 +31,7 @@ private:
     TreeNode<T>* insert(TreeNode<T>* &tree, T data);
     TreeNode<T>* remove(TreeNode<T>* &tree, TreeNode<T> *rm);
 
-    void destroy(TreeNode<T>* &tree);
+    // void destroy(TreeNode<T>* &tree);
 
     TreeNode<T>* leftLeftRotation(TreeNode<T> *ro);
     TreeNode<T>* rightRightRotation(TreeNode<T> *ro);
@@ -47,13 +39,13 @@ private:
     TreeNode<T>* rightLeftRotation(TreeNode<T> *ro);
 
 public:
-    AVLTree();
-    ~AVLTree();
+    // AVLTree();
+    // ~AVLTree();
 
     int depth();
     // direction 0:pre 1:in 2:post 3:level;
-    void print(int direction);
-    void print();
+    // void print(int direction);
+    // void print();
 
     T minimum();
     T maximum();
@@ -62,15 +54,9 @@ public:
     TreeNode<T>* iterativeSearch(T data);
     void insert(T data);
     void remove(T data);
-    void destroy();
+    // void destroy();
 };
 
-
-template<class T>
-AVLTree<T>::AVLTree(): root(nullptr) { }
- 
-template<class T>
-AVLTree<T>::~AVLTree() { destroy(root); }
 
 template<class T>
 int AVLTree<T>::depth(TreeNode<T> *tree){
@@ -81,6 +67,15 @@ template<class T>
 int AVLTree<T>::depth(){
     return depth(root);
 }
+/*
+
+template<class T>
+AVLTree<T>::AVLTree(): root(nullptr) { }
+ 
+template<class T>
+AVLTree<T>::~AVLTree() { destroy(root); }
+
+
 
 template<class T>
 void AVLTree<T>::preOrderPrint(TreeNode<T> *tree) const{
@@ -153,6 +148,7 @@ void AVLTree<T>::print() {
     inOrderPrint(root);
     cout << endl;
 }
+*/
 
 template<class T>
 TreeNode<T>* AVLTree<T>::minimum(TreeNode<T> *tree){
@@ -262,38 +258,54 @@ void AVLTree<T>::insert(T data){ insert(root, data); }
 
 template<class T>
 TreeNode<T>* AVLTree<T>::remove(TreeNode<T>* &tree, TreeNode<T> *rm){
-    if (tree == nullptr) return nullptr;
-    if (tree->val == rm->val) 
+    if (tree == nullptr || rm == nullptr ) return nullptr;
+    if (tree->val > rm->val) 
     {
-        if (rm->left == nullptr && rm->right == nullptr)
+        tree->left = remove(tree->left, rm);
+        if(depth(tree->right) - depth(tree->left) == 2)
         {
-            tree = nullptr;
+            if(depth(tree->right->left) < depth(tree->right->right)) 
+                tree = rightRightRotation(tree);
+            else
+                tree = rightLeftRotation(tree);
         }
-        else if (rm->left == nullptr)
-        {
-            tree = rm->right;
-        }
-        else  if(rm->right == nullptr)
-        {
-            tree = rm->left;
-        }
-        else
-        {
-           TreeNode<T> *temp = minimum(rm->right);
-           temp->left = rm->left;
-           temp->right = rm->right;
-           tree = temp;
-           delete temp;
-        }
-        delete rm;
+
     }
     else if (tree->val < rm->val)
     {
-        tree = remove(tree->right, rm);
+        tree->right = remove(tree->right, rm);
+        if(depth(tree->left) - depth(tree->right) == 2)
+        {
+            if(depth(tree->left->left) < depth(tree->left->right)) 
+                tree = leftRightRotation(tree);
+            else
+                tree = leftLeftRotation(tree);
+        } 
     }
     else
     {
-        tree = remove(tree->left, rm);
+        if (rm->left != nullptr && rm->right != nullptr)
+        {
+            if(depth(tree->left)>depth(tree->right))
+            {
+                TreeNode<T> *max = maximum(tree->left);
+                tree->val = max->val;
+                tree->left = remove(tree->left, max);
+            }
+            else
+            {
+                TreeNode<T> *min = minimum(tree->right);
+                tree->val = min->val;
+                tree->right = remove(tree->right, min); 
+            }
+        }
+        else
+        {
+            TreeNode<T> *tmp = tree;
+            tree = (tree->left!=nullptr) ? tree->left : tree->right;
+            delete tmp;
+        }
+
     }
     
     return tree;
@@ -309,6 +321,7 @@ void AVLTree<T>::remove(T data){
     }
 }
 
+/*
 template<class T>
 void AVLTree<T>::destroy(TreeNode<T>* &tree){
     if (tree != nullptr){
@@ -322,7 +335,7 @@ template<class T>
 void AVLTree<T>::destroy(){
     destroy(root);
 }
-
+*/
 
 template<class T>
 TreeNode<T>* AVLTree<T>::leftLeftRotation(TreeNode<T> *ro){

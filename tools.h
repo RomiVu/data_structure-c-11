@@ -2,7 +2,6 @@
 #define TOOLS_H
 #include <vector>
 
-// extern const int MAX_VERTEX_NUM=100;
 
 void CloseWindow();
 
