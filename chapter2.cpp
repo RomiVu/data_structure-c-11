@@ -255,3 +255,55 @@ bool isBalancedBST(TreeNode* root){
    // to be continued...
    return false;
 }
+
+
+TreeNode* searchBST(TreeNode* root, int target, TreeNode *&ptr){
+	ptr = nullptr;
+	while(root && root->val != target) {
+		ptr = root;
+		root = (target > root->val) ? root->right : root->left;
+	}
+	return root;
+}
+
+TreeNode* searchBSTRecursive(TreeNode* root, int target,TreeNode *&ptr){
+	if (!root){
+		ptr = nullptr;
+		return nullptr;
+	}
+	if (root->val == target) return root;
+	ptr = root;
+	if (root->val > target){
+	    return searchBSTRecursive(root->left, target, ptr);
+	}
+    else{
+    	return searchBSTRecursive(root->right, target, ptr);
+    }
+}
+
+int delteNodeBST(TreeNode* root, int target){
+	TreeNode *parent, *found;
+	found = searchBST(root, target, parent);
+
+	if (found){
+		// found is root
+		if (parent == nullptr){
+			
+		}
+		if (found->left == nullptr && found->right == nullptr) {
+			delete found;
+		} else if (found->left == nullptr || found->right == nullptr){
+			if (parent->val < target){
+				parent->right = found->right;
+			} else{
+				parent->left = found->right;
+			}
+			delete found;
+		} else {
+
+		}
+	} else {
+		return 0;
+	}
+
+}

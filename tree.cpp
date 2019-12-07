@@ -183,6 +183,22 @@ void insertBST(TreeNode* root, int element){
 }
 
 
+// 1 means insert successful, otherwise failure
+int insertBSTbook(TreeNode &root, int elem){
+    if (!root){
+        root = new TreeNode(element);
+        return 1;
+    } else if (elem < root->val){
+        insertBSTbook(root->left, elem);
+    } else if (elem > root->val) {
+        insertBSTbook(root->right, elem);
+    } else {
+        return 0;
+    }
+}
+
+
+
 void transformBSTtoBalanced(TreeNode* root){
     if (!root) return;
     if (root->left) transformBSTtoBalanced(root->left);
@@ -192,11 +208,14 @@ void transformBSTtoBalanced(TreeNode* root){
 }
 
 
-TreeNode* rotateLeft(TreeNode *root){
+TreeNode* findTheUnbalanced(TreeNode *root){
     if (!root) return nullptr;
-    if (root->left) rotateLeft(root->left);\
+    if (root->left && _abs(root->left->ld - root->left->rd) > 1) return root;
+    findTheUnbalanced(root->left);
+    if (root->right && _abs(root->right->ld - root->right->rd) > 1) return root;
+    findTheUnbalanced(root->right);
     if (_abs(root->ld - root->rd) > 1) return root;
-    if (root->right) rotateLeft(root->right);
+    return nullptr;
 }
 
 // TreeNode* rotateRight(TreeNode *root){

@@ -28,7 +28,6 @@ void insertBST(TreeNode* root, int element);
 
 void transformBSTtoBalanced(TreeNode* root);
 
-TreeNode* rotateLeft(TreeNode *root);
-TreeNode* rotateRight(TreeNode *root);
+TreeNode* findTheUnbalanced(TreeNode *root);
 
 #endif

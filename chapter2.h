@@ -32,4 +32,11 @@ int findSmallestBT(TreeNode* root, int current);
 int maxDepth(TreeNode* root);
 bool isBalanced(TreeNode* root);
 
+//search BST; ptr is target'parent node
+TreeNode* searchBST(TreeNode* root, int target, TreeNode *&ptr);
+TreeNode* searchBSTRecursive(TreeNode* root, int target,TreeNode *&ptr);
+
+////delete a node in bst 1 means sucess
+int delteNodeBST(TreeNode* root, int target);
+
 #endif
