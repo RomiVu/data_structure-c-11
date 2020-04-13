@@ -4,7 +4,6 @@
 #include <queue>
 #include <vector>
 
-
 using namespace std;
 
 // template for binary search tree & avl & b-tree
@@ -25,7 +24,7 @@ struct TreeNode {
 template<class T>
 class BTree 
 {
-private:
+protected:
     TreeNode<T>* root;
     // int depth(TreeNode<T> *tree);
 
